@@ -1,5 +1,8 @@
 Cosas que se pueden hacer:
 Buscar ralaciones entre si es acustica es mas propensa a ser bailable
+Introducir graficos para describir el dataset? Creo que ya estaria con el resumen que tira pandas profiling
+Ver que hacer con los resultados de K-means MinMax porque dio buenos resultados
+
 
 
 Descripcion del datafdrame:
@@ -7,9 +10,56 @@ https://developer.spotify.com/documentation/web-api/reference/get-audio-features
 
 
 
-Time signature:
+Time signature (El nuestro va de 1 a 5):
 3: Compás de 3/4, típico de valses y ciertas baladas, que tiene tres tiempos por compás.
 4: Compás de 4/4, el más común en la música pop, rock y electrónica, con cuatro tiempos por compás.
 5: Compás de 5/4, menos frecuente, usado a veces en jazz o composiciones experimentales.
 6: Compás de 6/4 o 6/8, que puede encontrarse en baladas lentas y algunas piezas clásicas.
 7: Compás de 7/4, muy inusual y común en estilos progresivos o complejos.
+
+### Features del dataframe
+
+- **acousticness**: Número [float]  
+  Una medida de confianza de 0.0 a 1.0 de si la pista es acústica. Un valor de 1.0 representa alta confianza en que la pista es acústica.  
+  **Rango**: 0 - 1
+
+- **danceability**: Número [float]  
+  La bailabilidad describe cuán adecuada es una pista para bailar, basada en una combinación de elementos musicales, incluyendo el tempo, la estabilidad del ritmo, la fuerza del compás y la regularidad general. Un valor de 0.0 es lo menos bailable y 1.0 es lo más bailable.
+
+- **duration_ms**: Entero [integer]  
+  La duración de la pista en milisegundos.
+
+- **energy**: Número [float]  
+  La energía es una medida de 0.0 a 1.0 que representa una medida perceptual de intensidad y actividad. Generalmente, las pistas enérgicas se sienten rápidas, fuertes y ruidosas. Las características perceptuales que contribuyen a este atributo incluyen el rango dinámico, la sonoridad percibida, el timbre, la frecuencia de inicio y la entropía general.
+
+- **instrumentalness**: Número [float]  
+  Predice si una pista no contiene voces. Los sonidos como "Ooh" y "aah" se consideran instrumentales en este contexto. Las pistas de rap o palabra hablada son claramente "vocales". Cuanto más cercano esté el valor de instrumentalidad a 1.0, mayor es la probabilidad de que la pista no contenga contenido vocal. Los valores superiores a 0.5 están destinados a representar pistas instrumentales, pero la confianza es mayor a medida que el valor se acerca a 1.0.
+
+- **key**: Entero [integer]  
+  La clave en la que se encuentra la pista. Los enteros se asignan a tonos utilizando la notación estándar de clase de tono. 0 = C (Do), 1 = C♯/D♭ (Do sostenido/Re bemol), 2 = D (Re), 3 = D♯/E♭ (Re sostenido/Mi bemol), 4 = E (Mi), 5 = F (Fa), 6 = F♯/G♭ (Fa sostenido/Sol bemol), 7 = G (Sol), 8 = G♯/A♭ (Sol sostenido/La bemol), 9 = A (La), 10 = A♯/B♭ (La sostenido/Si bemol), 11 = B (Si). -1 indica que no se detectó una clave.  
+  **Rango**: -1 - 11
+
+- **liveness**: Número [float]  
+  Detecta la presencia de una audiencia en la grabación. Los valores altos de vivacidad representan una mayor probabilidad de que la pista haya sido interpretada en vivo. Un valor superior a 0.8 indica una alta probabilidad de que la pista sea en vivo.
+
+- **loudness**: Número [float]  
+  La sonoridad total de una pista en decibelios (dB). Los valores de sonoridad se promedian en toda la pista y son útiles para comparar la sonoridad relativa entre pistas. La sonoridad es la cualidad de un sonido que es el principal correlato psicológico de la fuerza física (amplitud). Los valores típicamente oscilan entre -60 y 0 dB.
+
+- **mode**: Entero [integer]  
+  Indica la modalidad (mayor o menor) de una pista, el tipo de escala de la que se deriva su contenido melódico. Mayor está representado por 1 y menor por 0.
+
+- **speechiness**: Número [float]  
+  La cualidad de habla detecta la presencia de palabras habladas en una pista. Cuanto más exclusivamente parecida al habla sea la grabación (por ejemplo, programa de entrevistas, audiolibro, poesía), más cercano a 1.0 será el valor del atributo. Los valores superiores a 0.66 describen pistas que probablemente están compuestas completamente de palabras habladas. Los valores entre 0.33 y 0.66 describen pistas que pueden contener tanto música como habla, ya sea en secciones o superpuestas, como en el caso del rap. Los valores por debajo de 0.33 representan probablemente música y otras pistas no parecidas al habla.
+
+- **tempo**: Número [float]  
+  El tempo general estimado de una pista en pulsos por minuto (BPM). En terminología musical, el tempo es la velocidad o el ritmo de una pieza determinada y se deriva directamente de la duración promedio del pulso.
+
+- **time_signature**: Entero [integer]  
+  Una firma de tiempo estimada. La firma de tiempo (metro) es una convención notacional que especifica cuántos tiempos hay en cada compás. La firma de tiempo varía de 3 a 7, indicando firmas de tiempo de "3/4" a "7/4". 3 representa un compás de 3/4 (valses y baladas), 4 es 4/4 (el más común en pop y rock), 5 es 5/4 (jazz y experimental), 6 es 6/4 o 6/8 (baladas y piezas clásicas) y 7 es 7/4 (progresivo y complejo).   
+  **Rango**: 3 - 7 (El nuestro va de 1 a 5)
+
+- **valence**: Número [float]  
+  Una medida de 0.0 a 1.0 que describe la positividad musical transmitida por una pista. Las pistas con alta valencia suenan más positivas (por ejemplo, felices, alegres, eufóricas), mientras que las pistas con baja valencia suenan más negativas (por ejemplo, tristes, deprimidas, enojadas).
+
+- **label**: Entero [integer]  
+  Indica si una canción es del gusto de la persona que escucha esta playlist. Un valor de **1** significa que la canción le gusta a la persona, mientras que un valor de **0** indica que no le gusta.
